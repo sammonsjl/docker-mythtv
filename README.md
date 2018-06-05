@@ -3,7 +3,7 @@
 
 This is a Docker container for MythTV Backend.
 
-MythTV Setup is accessed through a modern web browser or via any VNC client.
+MythTV Setup is accessed through a modern web browser.
 
 ---
 
