@@ -113,7 +113,7 @@ Here is the list of ports used by the container.  They will be mapped to the hos
 via the `--net=host` parameter.
 
 | Port | Description |
-|------|-----------------|-------------|
+|------|------------------------------|
 | 6506 | MariaDB instance accessed by Mythfrontend. |
 | 6543 | Port Mythbackend runs on. |
 | 6544 | Mythbackend status port. Also where MythTV WebFrontend runs. |
