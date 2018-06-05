@@ -9,7 +9,7 @@ ENV CONFIG_MODE=1 \
 	TZ="America/Chicago" \
 	USERID=120
 	
-ARG MARIADB_VERSION="10.3"
+ARG MARIADB_VERSION="10.2"
 ARG MARIADB_URL="http://mirrors.coreix.net/mariadb/repo/$MARIADB_VERSION/ubuntu"
 ARG MYTHTV_VERSION="0.29"
 ARG MYTHTV_URL="http://ppa.launchpad.net/mythbuntu/$MYTHTV_VERSION/ubuntu/"
