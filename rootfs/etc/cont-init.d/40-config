@@ -1,0 +1,33 @@
+#!/usr/bin/with-contenv bash
+
+main() {
+    start_novnc
+    mythbackend_service
+}
+
+start_novnc() {
+
+    if [ "$CONFIG_MODE" = 1 ]; then
+        
+        rm -f /tmp/.X$(echo $DISPLAY | cut -d':' -f2)-lock
+        Xvfb :1 -screen 0 1280x768x16 &
+        sleep 5
+
+        s6-setuidgid mythtv mate-session > /dev/null 2>&1 &
+
+        x11vnc -display :1 -nopw -listen localhost -xkb -ncache 10 -ncache_cr -forever &
+
+        cd /opt/noVNC && ln -sf vnc_lite.html index.html && s6-setuidgid mythtv ./utils/launch.sh --listen 6570 --vnc localhost:5900 &
+
+    fi
+}
+
+mythbackend_service() {
+    if [ "$CONFIG_MODE" = 1 ]; then
+        touch /etc/services.d/mythbackend/down
+    else
+        rm -f /etc/services.d/mythbackend/down
+    fi
+}
+
+main

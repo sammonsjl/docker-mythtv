@@ -1,0 +1,57 @@
+#!/usr/bin/with-contenv bash
+
+main() {
+  fix_mythtv_user
+  fix_mythtv_config
+  fix_mythtv_dirs
+  fix_mythtv_perms
+}
+
+fix_mythtv_user() {
+  #Set Custom UID and GID for MythTV
+  [[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID -o mythtv
+  [[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && groupmod -g $GROUPID -o mythtv
+
+  # set a password for user mythtv and add to required groups
+  echo "mythtv:mythtv" | chpasswd
+  usermod -s /bin/bash -d /home/mythtv -a -G users,mythtv,adm,sudo mythtv
+  usermod -G mythtv root
+}
+
+fix_mythtv_config() {
+  if [ ! -f "/home/mythtv/.mythtv/config.xml" ]; then
+    echo "=> Creating Default MythTV config"
+    mkdir -p /home/mythtv/.mythtv
+    mkdir -p /root/.mythtv
+    ln -s /etc/mythtv/config.xml /home/mythtv/.mythtv
+    mkdir /home/mythtv/Desktop
+    yes | cp /config/*.desktop /home/mythtv/Desktop
+  fi
+}
+
+fix_mythtv_dirs() {
+  if [ ! -d "/var/lib/mythtv/banners" ]; then
+
+    echo "=> Creating default MythTV directories"
+
+    mkdir -p /var/lib/mythtv/banners  /var/lib/mythtv/coverart  /var/lib/mythtv/db_backups  /var/lib/mythtv/fanart  /var/lib/mythtv/livetv  /var/lib/mythtv/recordings  /var/lib/mythtv/screenshots  /var/lib/mythtv/streaming  /var/lib/mythtv/trailers  /var/lib/mythtv/videos
+
+  fi
+
+  if [ ! -d "/var/run/mythtv" ]; then
+    mkdir /var/run/mythtv
+  fi
+}
+
+fix_mythtv_perms() {
+
+  chown -R mythtv:users /home/mythtv
+  chown -R mythtv:users /var/lib/mythtv 
+  chown -R mythtv:users /var/log/mythtv
+  chown -R mythtv:users /var/run/mythtv
+  chmod +700 /home/mythtv
+  chmod +700 /var/lib/mythtv
+
+}
+
+main

@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=MythTV Backend Setup
+Comment=Used to configure a backend
+GenericName=mythtv-setup
+Exec=/config/scripts/run_mythtvsetup
+Type=Application
+Icon=mythtv
+Categories=GTK;System;Settings;
+X-AppInstall-Package=mythtv

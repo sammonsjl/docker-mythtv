@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mythtv-backend:
+    build: .
+    environment:
+      - CONFIG_MODE=1
+    ports:
+     - "6506:6506"
+     - "6543:6543"
+     - "6544:6544"
+     - "6554:6554"
+     - "6570:6570"
+     - "6580:6580"
+    volumes:
+      - config:/home/mythtv:nocopy
+      - data:/var/lib/mysql:nocopy
+      - media:/var/lib/mythtv:nocopy
+      - ./shared:/shared
+    hostname: mythbackend
+volumes:
+  config:
+  data:
+  media:

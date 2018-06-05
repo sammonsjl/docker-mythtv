@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+/usr/bin/mythbackend --user mythtv --pidfile /var/run/mythtv/mythtv.pid
+read -p "Press enter to continue"

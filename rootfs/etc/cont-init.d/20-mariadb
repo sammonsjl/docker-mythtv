@@ -1,0 +1,47 @@
+#!/usr/bin/with-contenv bash
+
+main() {
+    
+    create_mythdb
+}
+
+start_mysql() {
+    /usr/bin/mysqld_safe  > /dev/null 2>&1 &
+    RET=1
+    echo "=> Starting MariaDB"
+    while [[ RET -ne 0 ]]; do
+        mysql -uroot -e "status" > /dev/null 2>&1
+        RET=$?
+        sleep 2s
+    done
+    echo "=> MariaDB Started"
+}
+
+create_mythdb() {
+    if [ ! -f /var/lib/mysql/mysql/user.MYD ]; then
+
+        chmod 700 /var/lib/mysql
+        
+        echo "=> Creating DB config"
+        /usr/bin/mysql_install_db >/dev/null 2>&1 &&
+
+        start_mysql
+        
+        echo "=> Creating MythTV database"
+        mysql -uroot -e "CREATE DATABASE IF NOT EXISTS mythconverg"
+        mysql -uroot -e "CREATE USER 'mythtv'@'localhost' IDENTIFIED BY 'mythtv'"
+        mysql -uroot -e "GRANT ALL ON mythconverg.* TO 'mythtv'@'localhost' IDENTIFIED BY 'mythtv'"
+        mysql -uroot -e "GRANT CREATE TEMPORARY TABLES ON mythconverg.* TO 'mythtv'@'localhost' IDENTIFIED BY 'mythtv'"
+        mysql -uroot -e "ALTER DATABASE mythconverg DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci"
+        
+        echo "=> MythTV Database created"
+
+        mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+
+        mysqladmin -u root shutdown
+
+        chown -R mysql:mysql /var/lib/mysql
+    fi
+}
+
+main

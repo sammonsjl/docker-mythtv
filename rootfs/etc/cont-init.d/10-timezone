@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv bash
+
+#Fix Timezone
+timezone() { local timezone="${1:-EST5EDT}"
+    [[ -e /usr/share/zoneinfo/$timezone ]] || {
+        echo "ERROR: invalid timezone specified: $timezone" >&2
+        return
+    }
+
+    if [[ -w /etc/timezone && $(cat /etc/timezone) != $timezone ]]; then
+        echo "=> Fixing Timezone"
+        echo "$timezone" >/etc/timezone
+        ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
+        dpkg-reconfigure -f noninteractive tzdata >/dev/null 2>&1
+    fi
+}
+
+[[ "${TZ:-""}" ]] && timezone "$TZ"

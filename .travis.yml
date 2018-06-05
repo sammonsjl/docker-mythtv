@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - NAME=sammonsjl/mythtv
+    - VERSION=29-fixes
+
+script:
+  - docker build -t ${NAME}:${VERSION} --rm .
+
+after_success:
+  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}";
+    docker push ${NAME}:${VERSION};
