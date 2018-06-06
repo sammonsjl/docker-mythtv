@@ -9,7 +9,7 @@ MythTV Setup is accessed through a modern web browser.
 
 [![MythTV logo](https://www.mythtv.org/img/mythtv.png)](https://mythtv.org/)
 
-[MythTV](mythtv.org) is an Open Source DVR that started development in 2002. It contains many features found in many commercial DVR solutions.  MythTV can receive original TV programming from over the air or cable TV systems and integrates with various guide data services.
+[MythTV](https://mythtv.org/) is an Open Source DVR that started development in 2002. It contains many features found in many commercial DVR solutions.  MythTV can receive original TV programming from over the air or cable TV systems and integrates with various guide data services.
 
 ---
 
