@@ -73,9 +73,10 @@ docker run [-d] \
     --name=mythbackend \
     [-e <VARIABLE_NAME>=<VALUE>]... \
     [-v <HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]]... \
-    [---hostname=<HOSTNAME>]... \
+    [---hostname=<HOSTNAME>]... --net=host \
     sammonsjl/mythtv:29-fixes
 ```
+
 | Parameter | Description |
 |-----------|-------------|
 | -d        | Run the container in background.  If not set, the container runs in foreground. |
