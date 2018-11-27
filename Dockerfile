@@ -11,9 +11,7 @@ ENV CONFIG_MODE=1 \
 	TERM="xterm" \
 	TZ="America/Chicago" \
 	USERID=120
-	
-ARG MARIADB_VERSION="10.2"
-ARG MARIADB_URL="http://mirrors.coreix.net/mariadb/repo/$MARIADB_VERSION/ubuntu"
+
 ARG MYTHTV_VERSION="0.29"
 ARG MYTHTV_URL="http://ppa.launchpad.net/mythbuntu/$MYTHTV_VERSION/ubuntu/"
 ARG S6_VERSION="v1.21.4.0"
@@ -26,8 +24,6 @@ RUN apt-key adv --recv-keys --keyserver \
 	&& apt-key adv --recv-keys --keyserver \
 		hkp://keyserver.ubuntu.com:80 1504888C \
 	\
-	&& echo "deb [arch=amd64,i386] $MARIADB_URL bionic main" \
-		>> /etc/apt/sources.list.d/mariadb.list \
  	&& echo "deb $MYTHTV_URL bionic main" \
 	 	>> /etc/apt/sources.list.d/mythbuntu.list \
 	\
