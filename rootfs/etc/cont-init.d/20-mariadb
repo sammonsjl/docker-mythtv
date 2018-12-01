@@ -29,6 +29,9 @@ create_mythdb() {
         
         echo "=> Creating MythTV database"
         mysql -uroot -e "CREATE DATABASE IF NOT EXISTS mythconverg"
+        mysql -uroot -e "CREATE USER 'mythtv'@'localhost' IDENTIFIED BY 'mythtv'"
+        mysql -uroot -e "GRANT ALL ON mythconverg.* TO 'mythtv'@'localhost' IDENTIFIED BY 'mythtv'"
+        mysql -uroot -e "GRANT CREATE TEMPORARY TABLES ON mythconverg.* TO 'mythtv'@'localhost' IDENTIFIED BY 'mythtv'"
         mysql -uroot -e "CREATE USER 'mythtv' IDENTIFIED BY 'mythtv'"
         mysql -uroot -e "GRANT ALL ON mythconverg.* TO 'mythtv' IDENTIFIED BY 'mythtv'"
         mysql -uroot -e "GRANT CREATE TEMPORARY TABLES ON mythconverg.* TO 'mythtv' IDENTIFIED BY 'mythtv'"
