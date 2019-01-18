@@ -3,6 +3,12 @@
 main() {
     
     create_mythdb
+
+    if [ ! -d "/var/run/mysqld" ]; then
+        mkdir /var/run/mysqld
+        chown mysql:mysql /var/run/mysqld
+    fi
+    
 }
 
 start_mysql() {
@@ -44,8 +50,6 @@ create_mythdb() {
         mysqladmin -u root shutdown
 
         chown -R mysql:mysql /var/lib/mysql
-        mkdir /var/run/mysqld
-        chown mysql:mysql /var/run/mysqld
     fi
 }
 
