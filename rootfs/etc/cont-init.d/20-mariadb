@@ -41,6 +41,8 @@ create_mythdb() {
         mysqladmin -u root shutdown
 
         chown -R mysql:mysql /var/lib/mysql
+        mkdir /var/run/mysqld
+        chown mysql:mysql /var/run/mysqld
     fi
 }
 

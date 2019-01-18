@@ -11,7 +11,9 @@ ENV CONFIG_MODE=1 \
 	TERM="xterm" \
 	TZ="America/Chicago" \
 	USERID=120
-
+	
+ARG MARIADB_VERSION="10.2"
+ARG MARIADB_URL="http://mirrors.coreix.net/mariadb/repo/$MARIADB_VERSION/ubuntu"
 ARG MYTHTV_VERSION="0.29"
 ARG MYTHTV_URL="http://ppa.launchpad.net/mythbuntu/$MYTHTV_VERSION/ubuntu/"
 ARG S6_VERSION="v1.21.4.0"
@@ -24,6 +26,8 @@ RUN apt-key adv --recv-keys --keyserver \
 	&& apt-key adv --recv-keys --keyserver \
 		hkp://keyserver.ubuntu.com:80 1504888C \
 	\
+	&& echo "deb [arch=amd64,i386] $MARIADB_URL bionic main" \
+		>> /etc/apt/sources.list.d/mariadb.list \
  	&& echo "deb $MYTHTV_URL bionic main" \
 	 	>> /etc/apt/sources.list.d/mythbuntu.list \
 	\
@@ -31,9 +35,13 @@ RUN apt-key adv --recv-keys --keyserver \
 	&& apt-get dist-upgrade -y --no-install-recommends \
 		-o Dpkg::Options::="--force-confold" \
 	\
-	&& apt-get install -y apt-utils locales curl tzdata \
-		mariadb-server mythtv-backend-master mythweb \
+	&& apt-get install -y mariadb-server apt-utils locales curl tzdata  \
 		git x11vnc xvfb mate-desktop-environment-core net-tools \
+	\
+	&& apt-get install -y  \
+		mythtv-backend-master mythweb \
+	\
+	&& sed -i 's/3306/6506/g' /etc/mysql/mariadb.conf.d/50-server.cnf \
 	\
 	&& cd /opt && git clone https://github.com/kanaka/noVNC.git \
 	&& cd noVNC/utils && git clone \
