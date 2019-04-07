@@ -10,7 +10,7 @@ branches:
 env:
   global:
     - NAME=sammonsjl/mythtv
-    - VERSION=29-fixes
+    - VERSION=30-fixes
 
 script:
   - docker build -t ${NAME}:${VERSION} --rm .

@@ -12,7 +12,7 @@ ENV CONFIG_MODE=1 \
 	TZ="America/Chicago" \
 	USERID=120
 	
-ARG MYTHTV_VERSION="0.29"
+ARG MYTHTV_VERSION="30"
 ARG MYTHTV_URL="http://ppa.launchpad.net/mythbuntu/$MYTHTV_VERSION/ubuntu/"
 ARG S6_VERSION="v1.21.4.0"
 ARG S6_URL="https://github.com/just-containers/s6-overlay/releases/download/$S6_VERSION/s6-overlay-amd64.tar.gz"
