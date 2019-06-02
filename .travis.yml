@@ -5,11 +5,11 @@ services:
   
 branches:
   only:
-  - 30
+  - 0.29
 
 env:
   global:
-    - NAME=sammonsjl/mythtv
+    - NAME=pkendall64/mythtv
     - VERSION=29-fixes
 
 script:
