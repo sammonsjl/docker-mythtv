@@ -250,7 +250,7 @@ The graphical interface of the application can be accessed via:
 
   * A web browser:
 ```
-http://<HOST IP ADDR>:6700
+http://<HOST IP ADDR>:6570
 ```
 
 ## Shell Access
