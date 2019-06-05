@@ -64,7 +64,7 @@ Where:
   - `/docker/appdata/mythtv/data`: This is where MythTV stores it's MariaDB database.
   - `/docker/appdata/mythtv/media`: This is where MythTV stores it's media files such as recordings.
 
-Browse to `http://your-host-ip:6507` to access the Mate Desktop GUI.  From here MythTV can be configured using the MythTV Backend Setup shortcut.  MythTV can be also be tested using the MythTV Backend Startup shortcut.  Setting the variable CONFIG_MODE=0 will disable the GUI and properly configure S6 to control mythbackend startup.
+Browse to `http://your-host-ip:6570` to access the Mate Desktop GUI.  From here MythTV can be configured using the MythTV Backend Setup shortcut.  MythTV can be also be tested using the MythTV Backend Startup shortcut.  Setting the variable CONFIG_MODE=0 will disable the GUI and properly configure S6 to control mythbackend startup.
 
 ## Usage
 
@@ -94,7 +94,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`USERID`| ID of the user the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `120` |
 |`GROUPID`| ID of the group the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `121` |
 |`TZ`| [TimeZone] of the container.  Timezone can also be set by mapping `/etc/localtime` between the host and the container. | `America/Chicago"` |
-|`CONFIG_MODE`| When set to `1`, The mythbackend service will be disabled and a Mate Desktop will be started at: `http://your-host-ip:6507`. | `1` |
+|`CONFIG_MODE`| When set to `1`, The mythbackend service will be disabled and a Mate Desktop will be started at: `http://your-host-ip:6570`. | `1` |
 
 ### Data Volumes
 
