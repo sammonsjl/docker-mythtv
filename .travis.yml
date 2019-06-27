@@ -9,7 +9,7 @@ branches:
 
 env:
   global:
-    - NAME=pkendall64/mythtv
+    - NAME=sammonsjl/mythtv
     - VERSION=29-fixes
 
 script:
