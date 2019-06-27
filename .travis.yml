@@ -5,7 +5,7 @@ services:
   
 branches:
   only:
-  - 30
+  - 0.29
 
 env:
   global:

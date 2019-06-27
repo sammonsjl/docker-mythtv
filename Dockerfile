@@ -35,9 +35,13 @@ RUN apt-key adv --recv-keys --keyserver \
 		git x11vnc xvfb mate-desktop-environment-core net-tools \
 	\
 	&& apt-get install -y  \
-		mythtv-backend-master mythweb \
+		mythtv-backend-master mythweb xmltv xmltv-util \
+	\
+	&& wget https://nice.net.nz/scripts/tv_grab_nz-py -O /usr/bin/tv_grab_nz-py \
+	&& chmod a+x /usr/bin/tv_grab_nz-py \
 	\
 	&& sed -i 's/3306/6506/g' /etc/mysql/mariadb.conf.d/50-server.cnf \
+	&& sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf \
 	\
 	&& cd /opt && git clone https://github.com/kanaka/noVNC.git \
 	&& cd noVNC/utils && git clone \
