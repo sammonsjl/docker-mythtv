@@ -5,7 +5,7 @@ services:
 
 env:
   global:
-    - NAME=pkendall64/mythtv
+    - NAME=sammonsjl/mythtv
     - VERSION=30-fixes
 
 script:
