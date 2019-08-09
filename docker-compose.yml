@@ -11,6 +11,13 @@ services:
       - ./shared:/shared
     hostname: mythbackend
     network_mode: "host"
+    ports:
+      - "6506:6506"
+      - "6543:6543"
+      - "6544:6544"
+      - "6554:6554"
+      - "6570:6570"
+      - "6580:6580"
 volumes:
   config:
   data:

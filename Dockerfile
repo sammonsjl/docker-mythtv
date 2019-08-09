@@ -32,30 +32,42 @@ RUN apt-key adv --recv-keys --keyserver \
 		-o Dpkg::Options::="--force-confold" \
 	\
 	&& apt-get install -y mariadb-server apt-utils locales curl tzdata  \
-		git x11vnc xvfb mate-desktop-environment-core net-tools \
-	\
-	&& apt-get install -y  \
-		mythtv-backend-master mythweb xmltv xmltv-util \
-	\
-	&& wget https://nice.net.nz/scripts/tv_grab_nz-py -O /usr/bin/tv_grab_nz-py \
+		xmltv unzip iputils-ping lsb-release \
+		git x11vnc xvfb mate-desktop-environment-core net-tools wget
+
+RUN wget https://nice.net.nz/scripts/tv_grab_nz-py -O /usr/bin/tv_grab_nz-py \
 	&& chmod a+x /usr/bin/tv_grab_nz-py \
 	\
 	&& sed -i 's/3306/6506/g' /etc/mysql/mariadb.conf.d/50-server.cnf \
 	&& sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf \
+	&& sed -i 's/3306/6506/g' /etc/mysql/mariadb.conf.d/50-server.cnf \
 	\
 	&& cd /opt && git clone https://github.com/kanaka/noVNC.git \
 	&& cd noVNC/utils && git clone \
 		https://github.com/kanaka/websockify websockify \
-	\
 	&& locale-gen en_US.UTF-8 \
-	\
 	&& curl -o /tmp/s6-overlay.tar.gz -L ${S6_URL} \
-	&& tar xfz /tmp/s6-overlay.tar.gz -C / \
-	\
-	&& apt-get clean \
+	&& tar xfz /tmp/s6-overlay.tar.gz -C / 
+	
+RUN apt-get install -y pwgen xmltv xmltv-util
+RUN apt-get install -y --no-install-recommends pwgen mythtv-common ||true \
+	&& sed -i 's/\(^.*chmod.*NEW\)/#\1/' /var/lib/dpkg/info/mythtv-common.postinst \
+	&& sed -i 's/\(^.*chown.*NEW\)/#\1/' /var/lib/dpkg/info/mythtv-common.postinst \
+	&& apt-get install --no-install-recommends -y mythtv-common \
+	&& chown mythtv:mythtv /etc/mythtv/config.xml \
+	&& chmod 660 /etc/mythtv/config.xml
+
+# install mythtv-backend, database and ping util
+RUN apt-get install -y --no-install-recommends \
+	mythtv-backend mythtv-database mythtv-backend-master mythweb mythtv-status \
+	xmltv xmltv-util
+	
+RUN	apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY rootfs/ /
+
+#RUN mkdir -p /local && ln -s /var/lib/mythtv /local/myth
 
 CMD ["/init"]
 
